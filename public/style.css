@@ -59,3 +59,7 @@ button:focus {
 button.hover {
 	transform: scale(0.98);
 }
+
+[v-cloak] {
+	display:none;
+}
