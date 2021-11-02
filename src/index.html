@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LiwaGrid 測試</title>
+
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="https://unpkg.com/vue@next"></script>
+
+</head>
+<body>
+    <!-- demo root element -->
+    <div id="app">
+      <form id="search">
+        Search <input name="query" v-model="searchQuery">
+      </form>
+      <!-- <button class="btnTest" @click="showConsole"></button> -->
+      <demo-grid
+        :data="gridData"
+        :columns="gridColumns"
+        :filterKey="searchQuery" 
+      />
+    </div>
+
+    <script src="grid.js"></script>
+</body>
+</html>
