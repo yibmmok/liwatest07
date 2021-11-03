@@ -11,29 +11,10 @@ let app = Vue.createApp({
       	]
       }
 	}
-/*	methods: {
-      showConsole () {
-      	console.log('columns = ', this.gridColumns)
-      }		
-	}
-/*	mounted () {
-		this.gridData = [
-          { name: 'Chuck Norris', power: Infinity},
-          { name: 'Bruce Lee', power: 9000},
-          { name: 'Jakie Chan', power: 7000},
-          { name: 'Jet Li', power: 8000 }
-		]
-		this.gridColumns = ['name', 'power']
-	} */
 })
 
 app.component('demo-grid', {
-  // props: ['data', 'columns', 'filter-key'],
-  props: {
-  	data: [],
-  	columns: [],
-  	filterKey: ''
-  },
+  props: ['data', 'columns', 'filter_key'],
   replace: true,
   template: `
       <table v-if="filteredData.length">
@@ -42,7 +23,7 @@ app.component('demo-grid', {
             <th v-for="key in columns"
               @click="sortBy(key)"
               :class="{ active: sortKey == key }">
-              {{ key | capitalize }}
+              {{ key.toUpperCase() }}
               <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
               </span>
             </th>
@@ -58,9 +39,8 @@ app.component('demo-grid', {
       </table>
       <p v-else>No matches found.</p>
   `,
-  data: () => {
+  data: function () {
     let sortOrders = {}
-    // console.log('columns1 = ', this.columns)
     this.columns.forEach(function (key) {
       sortOrders[key] = 1
     })  
@@ -70,9 +50,9 @@ app.component('demo-grid', {
     }
   },
   computed: {
-    filterData: () => {
+    filteredData: function () {
     	let sortKey = this.sortKey
-    	let filterKey = this.filterKey && this.filterKey.toLowerCase()
+    	let filterKey = this.filter_key && this.filter_key.toLowerCase()
     	let order = this.sortOrders[sortKey] || 1
     	let data = this.data
     	if (filterKey) {
@@ -92,15 +72,17 @@ app.component('demo-grid', {
     	return data
     }
   },
-  filters: {
-    capitalize: (str) => {
+/*  filters: {
+    capitalize (str) {
+    	console.log('str = ', str)
     	return str.charAt(0).toUpperCase() + str.slice(1)
     }
-  },
+  },  */
   methods: {
-    sortBy: (key) => {
+    sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
+      console.log('key = ', key)
     }
   }
 })
